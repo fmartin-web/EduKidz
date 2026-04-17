@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+  <title>Limpieza del Aire - Edukidz</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="css.css">
+
+  <style>
+    body{
+      background-image:linear-gradient(rgba(235,255,238,0.46), rgba(253,255,231,0.40)), url(Imagenes/fondo2.png);
+      background-size:cover;
+      background-repeat:no-repeat;
+      background-attachment: fixed;
+    }
+
+    .contenido{
+      max-width:1100px;
+      margin:auto;
+      margin-top:120px;
+      padding:40px;
+      background:rgba(255,255,255,0.90); border:3px solid #dbf0c8;
+      border-radius:20px;
+    }
+
+    .contenido h1{
+      color:#1f3c5c;
+      font-size:45px;
+      margin-bottom:20px;
+    }
+
+    .contenido p{
+      color:#2d3e50;
+      font-size:18px;
+      line-height:1.7;
+      margin-bottom:20px;
+    }
+
+    .imagen-central{
+      text-align:center;
+      margin:35px 0;
+    }
+
+    .imagen-central img{
+      width:100%;
+      max-width:680px;
+      height:auto;
+      display:block;
+      margin:0 auto;
+      border-radius:20px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.20);
+      background:rgba(255,255,255,0.95);
+      padding:14px;
+    }
+
+    .info-boxes{
+      display:flex;
+      gap:20px;
+      margin-top:40px;
+      flex-wrap:wrap;
+    }
+
+    .box{
+      flex:1;
+      min-width:250px;
+      background:linear-gradient(180deg,#efffe7,#f8fff1);
+      padding:20px;
+      border-radius:15px;
+    }
+
+    .box h3{
+      color:#2c6fb7;
+      margin-bottom:10px;
+      font-size:18px;
+    }
+
+    .box p{
+      font-size:16px;
+      margin-bottom:0;
+    }
+
+    .dato-curioso{
+      margin-top:35px;
+      background:linear-gradient(180deg,#fff6d8,#eefbd7);
+      border-left:8px solid #f0c419;
+      border-radius:18px;
+      padding:20px;
+    }
+
+    .dato-curioso h2{
+      margin-top:0;
+      margin-bottom:10px;
+      color:#c07d00;
+      font-size:28px;
+    }
+
+    .dato-curioso p{
+      margin-bottom:0;
+      font-size:18px;
+    }
+
+    /* JUEGO */
+    .juego-clasificar{
+      margin-top:40px;
+      background:linear-gradient(180deg,#fff6d8,#eefbd7);
+      border-radius:20px;
+      padding:25px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.08);
+    }
+
+    .juego-clasificar h2{
+      color:#c07d00;
+      margin-bottom:10px;
+      font-size:30px;
+    }
+
+    .juego-clasificar p{
+      margin-bottom:18px;
+    }
+
+    .elementos{
+      display:flex;
+      flex-wrap:wrap;
+      gap:15px;
+      margin-bottom:25px;
+    }
+
+    .tarjeta{
+      background:white;
+      border:2px solid #d9e8ff;
+      border-radius:14px;
+      padding:12px 16px;
+      font-size:18px;
+      color:#1f3c5c;
+      cursor:grab;
+      box-shadow:0 4px 10px rgba(0,0,0,0.08);
+      user-select:none;
+    }
+
+    .tarjeta:active{
+      cursor:grabbing;
+    }
+
+    .zonas-juego{
+      display:flex;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .zona{
+      flex:1;
+      min-width:280px;
+      min-height:220px;
+      border-radius:18px;
+      padding:18px;
+      background:#f5fbff;
+      border:3px dashed #b8d7f5;
+    }
+
+    .zona h3{
+      margin-bottom:15px;
+      font-size:24px;
+    }
+
+    .zona.limpio h3{
+      color:#2f9e44;
+    }
+
+    .zona.contaminado h3{
+      color:#d94841;
+    }
+
+    .contenedor-zona{
+      min-height:140px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      align-content:flex-start;
+    }
+
+    .zona.hover{
+      background:#eef8ff;
+      border-color:#6aa8df;
+    }
+
+    .acciones-juego{
+      margin-top:20px;
+      display:flex;
+      gap:15px;
+      flex-wrap:wrap;
+    }
+
+    .acciones-juego button{
+      padding:12px 20px;
+      border:none;
+      border-radius:12px;
+      background:#2c6fb7;
+      color:white;
+      font-size:16px;
+      font-weight:bold;
+      cursor:pointer;
+      transition:0.2s ease;
+    }
+
+    .acciones-juego button:hover{
+      transform:scale(1.04);
+      background:#245f9b;
+    }
+
+    .resultado-juego{
+      margin-top:18px;
+      font-weight:bold;
+      font-size:20px;
+    }
+
+    .correcta{
+      border-color:#55c26a !important;
+      background:#eefced !important;
+    }
+
+    .incorrecta{
+      border-color:#e35d5d !important;
+      background:#fff1f1 !important;
+    }
+
+    @media (max-width: 768px){
+      .contenido{
+        padding:22px;
+      }
+
+      .contenido h1{
+        font-size:36px;
+      }
+
+      .zonas-juego{
+        flex-direction:column;
+      }
+
+      .tarjeta{
+        font-size:16px;
+      }
+    }
+  </style>
+
+
+  <link rel="icon" type="image/png" href="Imagenes/logo.png">
+</head>
+
+<body>
+
+  <!-- HEADER (ARREGLADO) -->
+  <header>
+  <div class="main-nav">
+    <div class="logo">
+      <a href="index.html">
+        <img src="Imagenes/logo.png" alt="Logo Edukidz">
+      </a>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="Respiracion.html">Respiración</a></li>
+        <li><a href="Intercambio_gases.html">Intercambio</a></li>
+        <li><a href="Regulacion.html">Regulación</a></li>
+        <li><a href="limpieza_del_aire.html" class="activo">Limpieza del Aire</a></li>
+      </ul>
+    </nav>
+    <div class="nav-icons">
+      <a href="Juegos.html" class="juegos-btn">
+        <span class="juegos-texto">Juegos</span>
+        <span class="juegos-icono">🎮</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+  <main>
+    <section class="contenido">
+      <div class="page-banner limpieza">
+        <div class="page-banner-logo">
+          <img src="Imagenes/logo.png" alt="Logo Edukidz">
+        </div>
+        <div class="page-banner-texto">
+<p>Mira cómo la nariz y las vías respiratorias ayudan a filtrar el aire.</p>
+        </div>
+      </div>
+
+
+      <h1>🌿 ¿Cómo se limpia el aire?</h1>
+
+      <p>
+        El aire que respiramos puede tener polvo, humo y microbios.
+        Nuestro cuerpo tiene formas de limpiarlo antes de que llegue a los pulmones.
+      </p>
+
+      <p>
+        La nariz tiene pequeños pelitos y mucosidad que atrapan la suciedad.
+        También estornudar o toser ayuda a expulsar lo que no sirve.
+      </p>
+
+      <div class="imagen-central">
+        <img src="Imagenes/limpiar.png" alt="Limpieza del aire">
+      </div>
+
+      <div class="info-boxes">
+
+        <div class="box">
+          <h3>👃 La nariz limpia</h3>
+          <p>La nariz atrapa polvo y suciedad antes de que entren al cuerpo.</p>
+        </div>
+
+        <div class="box">
+          <h3>🤧 Estornudar</h3>
+          <p>Ayuda a sacar lo que no sirve del aire que respiramos.</p>
+        </div>
+
+        <div class="box">
+          <h3>😷 Cuidar el aire</h3>
+          <p>Evitar humo y contaminación ayuda a respirar mejor.</p>
+        </div>
+
+      </div>
+
+      <div class="dato-curioso">
+        <h2>⭐ Dato curioso</h2>
+        <p>
+          Los vellos de la nariz y la mucosidad ayudan a atrapar polvo y microbios.
+          Por eso la nariz es como un filtro natural.
+        </p>
+      </div>
+
+      <!-- JUEGO -->
+      <div class="juego-clasificar">
+        <h2>🎮 Juego: Clasifica el aire</h2>
+        <p>Arrastra cada dibujo a la caja correcta.</p>
+
+        <div class="elementos" id="elementos">
+          <div class="tarjeta" draggable="true" data-tipo="limpio">🌳 Árbol</div>
+          <div class="tarjeta" draggable="true" data-tipo="contaminado">🚗 Humo de carro</div>
+          <div class="tarjeta" draggable="true" data-tipo="limpio">🚲 Bicicleta</div>
+          <div class="tarjeta" draggable="true" data-tipo="contaminado">🔥 Basura quemándose</div>
+          <div class="tarjeta" draggable="true" data-tipo="limpio">🌼 Flores</div>
+          <div class="tarjeta" draggable="true" data-tipo="contaminado">🏭 Fábrica con humo</div>
+        </div>
+
+        <div class="zonas-juego">
+          <div class="zona limpio" data-zona="limpio">
+            <h3>🌿 Aire limpio</h3>
+            <div class="contenedor-zona"></div>
+          </div>
+
+          <div class="zona contaminado" data-zona="contaminado">
+            <h3>🌫️ Aire contaminado</h3>
+            <div class="contenedor-zona"></div>
+          </div>
+        </div>
+
+        <div class="acciones-juego">
+          <button onclick="revisarJuego()">Revisar respuestas</button>
+          <button onclick="reiniciarJuego()">Reiniciar</button>
+        </div>
+
+        <p id="resultadoJuego" class="resultado-juego"></p>
+      </div>
+
+    </section>
+  </main>
+
+  <script>
+    let tarjetaArrastrada = null;
+    const tarjetas = document.querySelectorAll('.tarjeta');
+    const zonas = document.querySelectorAll('.zona');
+
+    tarjetas.forEach(tarjeta => {
+      tarjeta.addEventListener('dragstart', () => {
+        tarjetaArrastrada = tarjeta;
+      });
+    });
+
+    zonas.forEach(zona => {
+      zona.addEventListener('dragover', e => {
+        e.preventDefault();
+        zona.classList.add('hover');
+      });
+
+      zona.addEventListener('dragleave', () => {
+        zona.classList.remove('hover');
+      });
+
+      zona.addEventListener('drop', e => {
+        e.preventDefault();
+        zona.classList.remove('hover');
+        const contenedor = zona.querySelector('.contenedor-zona');
+        if (tarjetaArrastrada) {
+          contenedor.appendChild(tarjetaArrastrada);
+        }
+      });
+    });
+
+    function revisarJuego(){
+      const todasTarjetas = document.querySelectorAll('.tarjeta');
+      let correctas = 0;
+
+      todasTarjetas.forEach(tarjeta => {
+        tarjeta.classList.remove('correcta', 'incorrecta');
+
+        const zonaPadre = tarjeta.closest('.zona');
+        if(!zonaPadre) return;
+
+        const tipoCorrecto = tarjeta.dataset.tipo;
+        const zonaActual = zonaPadre.dataset.zona;
+
+        if(tipoCorrecto === zonaActual){
+          tarjeta.classList.add('correcta');
+          correctas++;
+        } else {
+          tarjeta.classList.add('incorrecta');
+        }
+      });
+
+      const resultado = document.getElementById('resultadoJuego');
+
+      if(correctas === 6){
+        resultado.textContent = '✅ ¡Excelente! Clasificaste todo correctamente.';
+        resultado.style.color = '#2f9e44';
+      } else {
+        resultado.textContent = '🟡 Tienes ' + correctas + ' de 6 correctas. Intenta otra vez.';
+        resultado.style.color = '#c07d00';
+      }
+    }
+
+    function reiniciarJuego(){
+      const contenedorInicial = document.getElementById('elementos');
+      const tarjetas = document.querySelectorAll('.tarjeta');
+
+      tarjetas.forEach(tarjeta => {
+        tarjeta.classList.remove('correcta', 'incorrecta');
+        contenedorInicial.appendChild(tarjeta);
+      });
+
+      const resultado = document.getElementById('resultadoJuego');
+      resultado.textContent = '';
+    }
+  </script>
+
+</body>
+</html>

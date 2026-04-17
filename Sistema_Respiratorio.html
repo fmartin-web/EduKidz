@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema Respiratorio - Mis Pulmones</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: "Trebuchet MS", Arial, sans-serif;
+    }
+
+    body{
+      background: linear-gradient(180deg,#f3f4fb,#eceef8);
+      color:#24334d;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    header{
+      width:100%;
+      background:#fff;
+      box-shadow:0 4px 18px rgba(0,0,0,0.08);
+      position:sticky;
+      top:0;
+      z-index:100;
+    }
+
+    .main-nav{
+      width:95%;
+      margin:auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:14px 0;
+      gap:20px;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:900;
+      color:#8d35ef;
+      font-size:18px;
+    }
+
+    .logo-circle{
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      background:linear-gradient(135deg,#cf64ff,#8d35ef);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      font-size:20px;
+      box-shadow:0 8px 18px rgba(141,53,239,0.25);
+    }
+
+    nav ul{
+      list-style:none;
+      display:flex;
+      align-items:center;
+      gap:24px;
+      flex-wrap:wrap;
+    }
+
+    nav ul li a{
+      font-weight:700;
+      color:#222;
+      transition:.2s;
+    }
+
+    nav ul li a:hover{
+      color:#8d35ef;
+    }
+
+    .doctor-btn{
+      background:linear-gradient(135deg,#bb52ff,#8d35ef);
+      color:#fff;
+      padding:10px 18px;
+      border-radius:12px;
+      font-weight:800;
+      box-shadow:0 6px 16px rgba(141,53,239,0.22);
+    }
+
+    .container{
+      width:95%;
+      margin:26px auto;
+    }
+
+    .hero{
+      background:linear-gradient(90deg,#14c8ee,#5794ff,#12dc7c);
+      border-radius:28px;
+      padding:26px 24px;
+      color:#fff;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+      flex-wrap:wrap;
+      box-shadow:0 12px 28px rgba(71,136,255,0.18);
+    }
+
+    .hero-left{
+      display:flex;
+      align-items:center;
+      gap:16px;
+    }
+
+    .hero-icon{
+      width:68px;
+      height:68px;
+      border-radius:18px;
+      background:rgba(255,255,255,0.9);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:34px;
+      color:#3e6cff;
+      flex-shrink:0;
+    }
+
+    .hero-text h1{
+      font-size:2.2rem;
+      line-height:1.05;
+      font-weight:900;
+    }
+
+    .hero-text p{
+      margin-top:8px;
+      font-size:1.05rem;
+      font-weight:700;
+      opacity:.96;
+    }
+
+    .hero-badges{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .badge{
+      min-width:120px;
+      background:rgba(255,255,255,0.95);
+      color:#24334d;
+      border-radius:18px;
+      padding:14px 16px;
+      text-align:center;
+      box-shadow:0 8px 18px rgba(0,0,0,0.08);
+    }
+
+    .badge span{
+      display:block;
+      font-size:.82rem;
+      font-weight:900;
+      color:#7c8192;
+      margin-bottom:6px;
+    }
+
+    .badge strong{
+      font-size:1.7rem;
+      color:#8d35ef;
+    }
+
+    .welcome-box{
+      margin-top:24px;
+      background:linear-gradient(135deg,#fffdf2,#ffffff);
+      border:4px solid #ffe082;
+      border-radius:26px;
+      padding:24px;
+      box-shadow:0 8px 24px rgba(0,0,0,0.06);
+      display:flex;
+      gap:20px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .welcome-emoji{
+      font-size:4rem;
+      line-height:1;
+    }
+
+    .welcome-content h2{
+      color:#ff6f91;
+      font-size:1.9rem;
+      margin-bottom:8px;
+      font-weight:900;
+    }
+
+    .welcome-content p{
+      font-size:1.05rem;
+      line-height:1.7;
+      color:#4c5c78;
+      font-weight:600;
+    }
+
+    .grid-top{
+      margin-top:24px;
+      display:grid;
+      grid-template-columns: 1fr 1.4fr 1fr;
+      gap:24px;
+    }
+
+    .panel{
+      background:rgba(255,255,255,0.76);
+      backdrop-filter:blur(6px);
+      border-radius:24px;
+      padding:22px;
+      box-shadow:0 10px 26px rgba(0,0,0,0.07);
+    }
+
+    .panel-blue{
+      border:4px solid #9fd3ff;
+    }
+
+    .panel-purple{
+      border:4px solid #d6afff;
+    }
+
+    .panel-green{
+      border:4px solid #9fe8c3;
+    }
+
+    .panel h3{
+      font-size:1.5rem;
+      font-weight:900;
+      margin-bottom:18px;
+      text-transform:uppercase;
+      color:#2c63ff;
+    }
+
+    .panel h3.purple{
+      color:#8d35ef;
+    }
+
+    .panel h3.green{
+      color:#0ca96f;
+    }
+
+    .organ-card{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      padding:16px;
+      background:#fff;
+      border:3px solid #e5e8f0;
+      border-radius:20px;
+      margin-bottom:14px;
+      cursor:pointer;
+      transition:.2s;
+    }
+
+    .organ-card:hover{
+      transform:translateY(-3px);
+      box-shadow:0 8px 18px rgba(0,0,0,0.07);
+      border-color:#c9b0ff;
+    }
+
+    .organ-icon{
+      width:58px;
+      height:58px;
+      border-radius:16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:2rem;
+      background:linear-gradient(135deg,#fff2f7,#fff9dc);
+      flex-shrink:0;
+    }
+
+    .organ-card h4{
+      font-size:1.15rem;
+      color:#1e2f4a;
+      margin-bottom:4px;
+      font-weight:900;
+    }
+
+    .organ-card p{
+      font-size:.95rem;
+      color:#64708b;
+      line-height:1.4;
+      font-weight:600;
+    }
+
+    .middle-box{
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+
+    .air-journey{
+      background:linear-gradient(180deg,#fcfcfe,#f2f6ff);
+      border-radius:24px;
+      padding:24px;
+      min-height:520px;
+      position:relative;
+      overflow:hidden;
+      border:1px solid #edf0f7;
+    }
+
+    .air-journey h2{
+      text-align:center;
+      font-size:1.8rem;
+      color:#2b3b59;
+      font-weight:900;
+      margin-bottom:24px;
+    }
+
+    .steps{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:16px;
+      position:relative;
+      z-index:2;
+    }
+
+    .step{
+      width:320px;
+      max-width:100%;
+      min-height:82px;
+      border-radius:22px;
+      border:4px dashed #c8cedb;
+      background:rgba(255,255,255,0.9);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:14px;
+      font-size:1.12rem;
+      font-weight:900;
+      color:#37486a;
+      transition:.25s;
+    }
+
+    .step.active{
+      background:linear-gradient(135deg,#c7f1ff,#d8d4ff,#d8ffea);
+      border-color:#6bafff;
+      transform:scale(1.04);
+      box-shadow:0 10px 22px rgba(95,136,255,0.17);
+    }
+
+    .double-step{
+      display:flex;
+      justify-content:center;
+      gap:16px;
+      flex-wrap:wrap;
+      width:100%;
+    }
+
+    .arrow{
+      font-size:1.9rem;
+      color:#8d35ef;
+      animation:jump 1.2s infinite;
+      font-weight:900;
+    }
+
+    @keyframes jump{
+      0%,100%{transform:translateY(0);}
+      50%{transform:translateY(5px);}
+    }
+
+    .bg-kid{
+      position:absolute;
+      bottom:14px;
+      left:50%;
+      transform:translateX(-50%);
+      font-size:8rem;
+      opacity:0.08;
+      pointer-events:none;
+      user-select:none;
+    }
+
+    .action-buttons{
+      display:flex;
+      justify-content:center;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      border:none;
+      padding:14px 24px;
+      border-radius:14px;
+      font-size:1rem;
+      font-weight:900;
+      cursor:pointer;
+      transition:.2s;
+    }
+
+    .btn-primary{
+      background:linear-gradient(135deg,#336cff,#9a2fff);
+      color:#fff;
+      box-shadow:0 8px 18px rgba(84,93,255,0.25);
+    }
+
+    .btn-secondary{
+      background:#24334d;
+      color:#fff;
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+    }
+
+    .info-box{
+      background:linear-gradient(135deg,#9a2fff,#6731ff);
+      color:#fff;
+      border-radius:22px;
+      padding:22px;
+      box-shadow:0 12px 24px rgba(123,47,240,0.22);
+    }
+
+    .info-box h4{
+      font-size:1.15rem;
+      margin-bottom:10px;
+      text-transform:uppercase;
+      font-weight:900;
+    }
+
+    .info-box p{
+      line-height:1.7;
+      font-size:1rem;
+      font-weight:700;
+    }
+
+    .stars{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      margin-bottom:18px;
+    }
+
+    .star-box{
+      min-height:130px;
+      background:#a1a5ad;
+      border-radius:20px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:2.5rem;
+      color:#fff;
+      box-shadow:inset 0 0 0 3px rgba(255,255,255,0.55), 0 8px 16px rgba(0,0,0,0.08);
+      transition:.25s;
+    }
+
+    .star-box.unlocked{
+      background:linear-gradient(135deg,#1fd0f6,#7d55ff,#14df85);
+      transform:scale(1.03);
+    }
+
+    .mini-text{
+      text-align:center;
+      color:#8b92a5;
+      font-weight:900;
+      line-height:1.5;
+    }
+
+    .mission{
+      margin-top:18px;
+      background:linear-gradient(135deg,#9a2fff,#6929ff);
+      color:#fff;
+      padding:22px;
+      border-radius:22px;
+      box-shadow:0 12px 26px rgba(109,48,243,0.22);
+    }
+
+    .mission h4{
+      font-size:1.15rem;
+      text-transform:uppercase;
+      margin-bottom:10px;
+      font-weight:900;
+    }
+
+    .mission p{
+      line-height:1.6;
+      margin-bottom:12px;
+      font-weight:700;
+    }
+
+    .progress{
+      width:100%;
+      height:16px;
+      background:rgba(255,255,255,0.22);
+      border-radius:999px;
+      overflow:hidden;
+    }
+
+    .progress-bar{
+      height:100%;
+      width:20%;
+      background:linear-gradient(90deg,#29e5a2,#fff26c);
+      border-radius:999px;
+      transition:.35s;
+    }
+
+    .grid-bottom{
+      margin-top:24px;
+      display:grid;
+      grid-template-columns:1.2fr 1fr;
+      gap:24px;
+    }
+
+    .quiz-question{
+      font-size:1.15rem;
+      font-weight:900;
+      color:#2d3f5e;
+      margin-bottom:18px;
+      line-height:1.6;
+    }
+
+    .options{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    .option{
+      background:#fff;
+      border:3px solid #dfe5ef;
+      border-radius:18px;
+      padding:16px;
+      cursor:pointer;
+      font-size:1rem;
+      font-weight:900;
+      color:#293a59;
+      transition:.2s;
+    }
+
+    .option:hover{
+      transform:translateY(-2px);
+      border-color:#9a2fff;
+    }
+
+    .option.correct{
+      background:#dffae7;
+      border-color:#28b25f;
+      color:#18683d;
+    }
+
+    .option.wrong{
+      background:#ffe3e3;
+      border-color:#e24c4c;
+      color:#a72626;
+    }
+
+    .result{
+      margin-top:16px;
+      background:#f2f5fb;
+      border-radius:16px;
+      padding:14px 16px;
+      font-weight:900;
+      color:#33435f;
+      line-height:1.5;
+      min-height:56px;
+    }
+
+    .fact-list{
+      display:grid;
+      gap:14px;
+    }
+
+    .fact{
+      background:#fff;
+      border-radius:18px;
+      padding:16px;
+      border-left:6px solid #8d35ef;
+      box-shadow:0 6px 15px rgba(0,0,0,0.05);
+    }
+
+    .fact h4{
+      color:#2b3d5f;
+      margin-bottom:6px;
+      font-weight:900;
+    }
+
+    .fact p{
+      color:#69748d;
+      line-height:1.55;
+      font-weight:700;
+      font-size:.96rem;
+    }
+
+    footer{
+      margin-top:28px;
+      padding:24px;
+      text-align:center;
+      color:#6c7890;
+      font-weight:900;
+    }
+
+    @media (max-width:1200px){
+      .grid-top,
+      .grid-bottom{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:850px){
+      .main-nav{
+        flex-direction:column;
+      }
+
+      .hero-text h1{
+        font-size:1.8rem;
+      }
+
+      .options{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:520px){
+      nav ul{
+        justify-content:center;
+        gap:14px;
+        font-size:.95rem;
+      }
+
+      .hero{
+        padding:20px;
+      }
+
+      .hero-left{
+        align-items:flex-start;
+      }
+
+      .welcome-content h2{
+        font-size:1.5rem;
+      }
+
+      .stars{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="main-nav">
+      <div class="logo">
+        <div class="logo-circle">🫁</div>
+        <span>Mis Pulmones</span>
+      </div>
+
+      <nav>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="#">¿Qué son?</a></li>
+          <li><a href="sistema_respiratorio.html">Sistema respiratorio</a></li>
+          <li><a href="#">Respira</a></li>
+          <li><a href="#">Datos curiosos</a></li>
+          <li><a href="#">Juegos</a></li>
+          <li><a href="#" class="doctor-btn">Doctor</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <section class="hero">
+      <div class="hero-left">
+        <div class="hero-icon">👩‍⚕️</div>
+        <div class="hero-text">
+          <h1>EL SISTEMA RESPIRATORIO</h1>
+          <p>Aprendamos cómo viaja el aire por nuestro cuerpo</p>
+        </div>
+      </div>
+
+      <div class="hero-badges">
+        <div class="badge">
+          <span>PUNTOS</span>
+          <strong id="points">1350</strong>
+        </div>
+        <div class="badge">
+          <span>NIVEL</span>
+          <strong id="level">4</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="welcome-box">
+      <div class="welcome-emoji">🌬️</div>
+      <div class="welcome-content">
+        <h2>¡Bienvenido, pequeño explorador!</h2>
+        <p>
+          En esta misión descubrirás cómo entra el aire por la nariz,
+          cómo baja por la tráquea y cómo llega a los pulmones para ayudarnos a vivir,
+          correr, jugar y aprender.
+        </p>
+      </div>
+    </section>
+
+    <section class="grid-top">
+
+      <div class="panel panel-blue">
+        <h3>Partes del sistema</h3>
+
+        <div class="organ-card" onclick="showInfo('nariz')">
+          <div class="organ-icon">👃</div>
+          <div>
+            <h4>Nariz</h4>
+            <p>Por aquí entra el aire limpio a nuestro cuerpo.</p>
+          </div>
+        </div>
+
+        <div class="organ-card" onclick="showInfo('traquea')">
+          <div class="organ-icon">🫧</div>
+          <div>
+            <h4>Tráquea</h4>
+            <p>Es el camino por donde baja el aire.</p>
+          </div>
+        </div>
+
+        <div class="organ-card" onclick="showInfo('bronquios')">
+          <div class="organ-icon">🌿</div>
+          <div>
+            <h4>Bronquios</h4>
+            <p>Llevan el aire hacia cada pulmón.</p>
+          </div>
+        </div>
+
+        <div class="organ-card" onclick="showInfo('pulmones')">
+          <div class="organ-icon">🫁</div>
+          <div>
+            <h4>Pulmones</h4>
+            <p>Toman el oxígeno que el cuerpo necesita.</p>
+          </div>
+        </div>
+
+        <div class="organ-card" onclick="showInfo('diafragma')">
+          <div class="organ-icon">💪</div>
+          <div>
+            <h4>Diafragma</h4>
+            <p>Ayuda a meter y sacar el aire.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel middle-box">
+        <div class="air-journey">
+          <h2>EL VIAJE DEL AIRE</h2>
+
+          <div class="steps">
+            <div class="step" id="step1">1. EL AIRE ENTRA POR LA NARIZ 👃</div>
+            <div class="arrow">⬇</div>
+            <div class="step" id="step2">2. BAJA POR LA TRÁQUEA 🫧</div>
+            <div class="arrow">⬇</div>
+
+            <div class="double-step">
+              <div class="step" id="step3">3. PASA POR LOS BRONQUIOS 🌿</div>
+              <div class="step" id="step4">4. LLEGA A LOS PULMONES 🫁</div>
+            </div>
+
+            <div class="arrow">⬇</div>
+            <div class="step" id="step5">5. EL DIAFRAGMA AYUDA A RESPIRAR 💪</div>
+          </div>
+
+          <div class="bg-kid">🧒</div>
+        </div>
+
+        <div class="action-buttons">
+          <button class="btn btn-primary" onclick="startJourney()">Ver recorrido</button>
+          <button class="btn btn-secondary" onclick="resetJourney()">Reiniciar</button>
+        </div>
+
+        <div class="info-box" id="infoBox">
+          <h4>Información</h4>
+          <p>
+            Haz clic en una parte del sistema respiratorio o presiona
+            “Ver recorrido” para aprender cómo respiramos.
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <div class="panel panel-purple">
+          <h3 class="purple">Logros</h3>
+
+          <div class="stars">
+            <div class="star-box unlocked" id="star1">⭐</div>
+            <div class="star-box" id="star2">🔒</div>
+            <div class="star-box" id="star3">🔒</div>
+            <div class="star-box" id="star4">🔒</div>
+          </div>
+
+          <div class="mini-text">
+            AMIGO DEL AIRE<br>
+            SIGUE JUGANDO PARA GANAR MÁS
+          </div>
+        </div>
+
+        <div class="mission">
+          <h4>Misión actual</h4>
+          <p>
+            Aprende el viaje del aire y responde correctamente el reto para completar tu misión.
+          </p>
+          <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="grid-bottom">
+      <div class="panel panel-green">
+        <h3 class="green">Reto rápido</h3>
+
+        <div class="quiz-question">
+          ¿Cuál es la parte del cuerpo que ayuda a meter y sacar el aire?
+        </div>
+
+        <div class="options">
+          <button class="option" onclick="checkAnswer(this, false)">La mano</button>
+          <button class="option" onclick="checkAnswer(this, true)">El diafragma</button>
+          <button class="option" onclick="checkAnswer(this, false)">El pie</button>
+          <button class="option" onclick="checkAnswer(this, false)">El estómago</button>
+        </div>
+
+        <div class="result" id="resultBox">
+          Elige una respuesta para continuar.
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>Datos curiosos</h3>
+
+        <div class="fact-list">
+          <div class="fact">
+            <h4>Respiras todo el día</h4>
+            <p>Tu cuerpo nunca deja de respirar, incluso cuando estás dormido.</p>
+          </div>
+
+          <div class="fact">
+            <h4>Los pulmones son importantes</h4>
+            <p>Gracias a ellos, el cuerpo recibe el oxígeno que necesita para vivir.</p>
+          </div>
+
+          <div class="fact">
+            <h4>Cuando corres, respiras más rápido</h4>
+            <p>Eso pasa porque tu cuerpo necesita más aire y más energía.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    Mis Pulmones - Página educativa del sistema respiratorio
+  </footer>
+
+  <script>
+    const infoTexts = {
+      nariz: "La nariz es la puerta de entrada del aire. También ayuda a limpiarlo antes de que entre al cuerpo.",
+      traquea: "La tráquea es como un tubito por donde el aire baja hacia el pecho.",
+      bronquios: "Los bronquios llevan el aire a cada uno de los pulmones.",
+      pulmones: "Los pulmones toman el oxígeno del aire para ayudar al cuerpo a vivir y crecer.",
+      diafragma: "El diafragma es un músculo que se mueve para ayudarnos a inhalar y exhalar."
+    };
+
+    function showInfo(part){
+      document.getElementById("infoBox").innerHTML = `
+        <h4>Información</h4>
+        <p>${infoTexts[part]}</p>
+      `;
+    }
+
+    let running = false;
+
+    function startJourney(){
+      if(running) return;
+      running = true;
+
+      const steps = [
+        document.getElementById("step1"),
+        document.getElementById("step2"),
+        document.getElementById("step3"),
+        document.getElementById("step4"),
+        document.getElementById("step5")
+      ];
+
+      const messages = [
+        "Primero, el aire entra por la nariz.",
+        "Después, el aire baja por la tráquea.",
+        "Luego, el aire pasa por los bronquios.",
+        "Después llega a los pulmones.",
+        "Por último, el diafragma ayuda a mover el aire."
+      ];
+
+      resetJourney(false);
+
+      steps.forEach((step, i) => {
+        setTimeout(() => {
+          step.classList.add("active");
+          document.getElementById("infoBox").innerHTML = `
+            <h4>Paso ${i + 1}</h4>
+            <p>${messages[i]}</p>
+          `;
+          updateProgress((i + 1) * 16);
+        }, i * 900);
+      });
+
+      setTimeout(() => {
+        document.getElementById("infoBox").innerHTML = `
+          <h4>¡Muy bien!</h4>
+          <p>Ya viste cómo viaja el aire por el sistema respiratorio. Ahora responde el reto.</p>
+        `;
+        unlockStar(2);
+        running = false;
+      }, steps.length * 900);
+    }
+
+    function resetJourney(resetInfo = true){
+      document.querySelectorAll(".step").forEach(step => step.classList.remove("active"));
+      updateProgress(20);
+
+      if(resetInfo){
+        document.getElementById("infoBox").innerHTML = `
+          <h4>Información</h4>
+          <p>
+            Haz clic en una parte del sistema respiratorio o presiona
+            “Ver recorrido” para aprender cómo respiramos.
+          </p>
+        `;
+      }
+    }
+
+    function updateProgress(value){
+      document.getElementById("progressBar").style.width = value + "%";
+    }
+
+    function unlockStar(number){
+      const star = document.getElementById("star" + number);
+      if(star){
+        star.classList.add("unlocked");
+        star.textContent = "🏆";
+      }
+    }
+
+    function checkAnswer(button, isCorrect){
+      const buttons = document.querySelectorAll(".option");
+      buttons.forEach(btn => {
+        btn.disabled = true;
+        if(btn === button){
+          btn.classList.add(isCorrect ? "correct" : "wrong");
+        }
+      });
+
+      if(isCorrect){
+        document.getElementById("resultBox").textContent = "¡Correcto! El diafragma ayuda a meter y sacar el aire.";
+        document.getElementById("resultBox").style.background = "#dffae7";
+        unlockStar(3);
+        unlockStar(4);
+        updateProgress(100);
+        document.getElementById("points").textContent = "1500";
+        document.getElementById("level").textContent = "5";
+      } else {
+        document.getElementById("resultBox").textContent = "No es correcto. Intenta recordar qué músculo ayuda a respirar.";
+        document.getElementById("resultBox").style.background = "#ffe3e3";
+
+        buttons.forEach(btn => {
+          if(btn.textContent.includes("diafragma")){
+            btn.classList.add("correct");
+          }
+        });
+      }
+    }
+  </script>
+
+</body>
+</html>

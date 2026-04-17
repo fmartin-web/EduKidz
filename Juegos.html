@@ -1,0 +1,1976 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <title>Juegos - Edukidz</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css.css">
+
+  <style>
+    body{
+      background-image:linear-gradient(rgba(255,236,247,0.42), rgba(238,241,255,0.42)), url(Imagenes/fondo2.png);
+      background-size:cover;
+      background-repeat:no-repeat;
+      background-attachment:fixed;
+    }
+
+    .contenido{
+      max-width:1100px;
+      margin:auto;
+      margin-top:120px;
+      padding:40px;
+      background:rgba(255,255,255,0.92); border:3px solid #efd8ff; box-shadow:0 20px 42px rgba(115,105,214,0.10);
+      border-radius:20px;
+      overflow:hidden;
+    }
+
+    .contenido h1{
+      color:#1f3c5c;
+      font-size:44px;
+      margin-bottom:12px;
+      text-align:center;
+    }
+
+    .contenido p{
+      color:#2d3e50;
+      font-size:18px;
+      line-height:1.7;
+      margin-bottom:18px;
+      text-align:center;
+    }
+
+    .menu-juegos{
+      display:flex;
+      justify-content:center;
+      gap:15px;
+      flex-wrap:wrap;
+      margin:25px 0 35px;
+    }
+
+    .mini-card{
+      background:linear-gradient(180deg,#ffe9f5,#eef4ff);
+      padding:16px 26px;
+      border-radius:16px;
+      font-weight:800;
+      font-size:20px;
+      color:#2c6fb7;
+      box-shadow:0 4px 10px rgba(0,0,0,0.08);
+      cursor:pointer;
+      border:none;
+      transition:0.25s ease;
+      font-family:Arial, sans-serif;
+    }
+
+    .mini-card:hover{
+      transform:translateY(-2px);
+      background:#d9ecff;
+    }
+
+    .mini-card.activo{
+      background:#2c6fb7;
+      color:white;
+    }
+
+    .slider-wrapper{
+      width:100%;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .slider-track{
+      display:flex;
+      width:300%;
+      transition:transform 0.6s ease;
+    }
+
+    .slide{
+      width:33.3333%;
+      flex:0 0 33.3333%;
+      padding:0 8px;
+      box-sizing:border-box;
+    }
+
+    .juego-card{
+      background:linear-gradient(180deg,#fff7da,#ffe9f7);
+      border-radius:22px;
+      padding:30px;
+      box-shadow:0 8px 18px rgba(0,0,0,0.08);
+      min-height:760px;
+    }
+
+    .juego-card h2{
+      color:#c07d00;
+      font-size:32px;
+      margin-bottom:10px;
+      text-align:center;
+    }
+
+    .juego-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:28px;
+      align-items:start;
+      margin-top:25px;
+    }
+
+    .panel-brainrot{
+      background:white;
+      border-radius:22px;
+      padding:22px;
+      box-shadow:0 8px 18px rgba(0,0,0,0.08);
+      text-align:center;
+      min-height:560px;
+      position:relative;
+    }
+
+    .panel-palabra{
+      background:#eef7ff;
+      border-radius:22px;
+      padding:22px;
+      box-shadow:0 8px 18px rgba(0,0,0,0.08);
+    }
+
+    .pista{
+      background:#dff0ff;
+      color:#2c6fb7;
+      padding:14px 18px;
+      border-radius:14px;
+      font-size:18px;
+      text-align:center;
+      margin-bottom:22px;
+      font-weight:bold;
+    }
+
+    .palabra{
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:10px;
+      margin:25px 0;
+    }
+
+    .letra-box{
+      width:52px;
+      height:58px;
+      background:white;
+      border:3px solid #b7d9f8;
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:28px;
+      font-weight:bold;
+      color:#1f3c5c;
+      box-shadow:0 4px 8px rgba(0,0,0,0.06);
+    }
+
+    .teclado{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:10px;
+      margin-top:10px;
+    }
+
+    .tecla{
+      width:48px;
+      height:48px;
+      border:none;
+      border-radius:12px;
+      background:#2c6fb7;
+      color:white;
+      font-size:18px;
+      font-weight:bold;
+      cursor:pointer;
+      transition:0.2s ease;
+    }
+
+    .tecla:hover{
+      transform:scale(1.05);
+      background:#245f9b;
+    }
+
+    .tecla:disabled{
+      background:#b8c9d9;
+      cursor:not-allowed;
+      transform:none;
+    }
+
+    .acciones{
+      margin-top:24px;
+      display:flex;
+      justify-content:center;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .acciones button,
+    .puzzle-botones button,
+    .quiz-botones button{
+      border:none;
+      border-radius:14px;
+      padding:12px 20px;
+      background:#3aa66b;
+      color:white;
+      font-size:16px;
+      font-weight:bold;
+      cursor:pointer;
+      transition:0.2s ease;
+    }
+
+    .acciones button:hover,
+    .puzzle-botones button:hover,
+    .quiz-botones button:hover{
+      transform:scale(1.04);
+      background:#2c8a57;
+    }
+
+    .mensaje{
+      margin-top:22px;
+      text-align:center;
+      font-size:22px;
+      font-weight:bold;
+      min-height:34px;
+    }
+
+    .errores{
+      margin-top:12px;
+      font-size:18px;
+      font-weight:bold;
+      color:#d94841;
+      text-align:center;
+    }
+
+    .contador{
+      margin-top:14px;
+      background:#eaf7ea;
+      border-radius:16px;
+      padding:14px;
+      text-align:center;
+      font-weight:bold;
+      color:#2f9e44;
+    }
+
+    .nombre-monstruo{
+      font-size:28px;
+      font-weight:bold;
+      color:#1f3c5c;
+      margin-bottom:8px;
+    }
+
+    .subtexto{
+      font-size:16px;
+      color:#456;
+      margin-bottom:14px;
+    }
+
+    .brainrot-badge{
+      background:#fff3cd;
+      color:#a86d00;
+      border-radius:14px;
+      padding:10px 14px;
+      display:inline-block;
+      font-weight:bold;
+      font-size:15px;
+      margin-top:10px;
+    }
+
+    .estado-cara{
+      margin-top:12px;
+      font-size:18px;
+      font-weight:bold;
+      color:#2c6fb7;
+    }
+
+    .escena{
+      width:100%;
+      max-width:360px;
+      height:430px;
+      margin:0 auto 15px;
+      position:relative;
+      border-radius:24px;
+      background:linear-gradient(180deg,#dff4ff 0%, #f6fdff 60%, #ffffff 100%);
+      overflow:hidden;
+      border:3px dashed #b7d9f8;
+    }
+
+    .sol{
+      position:absolute;
+      top:18px;
+      left:20px;
+      width:52px;
+      height:52px;
+      background:#ffd54f;
+      border-radius:50%;
+      box-shadow:0 0 0 8px rgba(255,213,79,0.22);
+    }
+
+    .nube{
+      position:absolute;
+      background:white;
+      border-radius:30px;
+      opacity:0.95;
+    }
+
+    .nube.n1{
+      width:70px;
+      height:28px;
+      top:28px;
+      right:30px;
+    }
+
+    .nube.n2{
+      width:56px;
+      height:24px;
+      top:58px;
+      right:75px;
+    }
+
+    .suelo{
+      position:absolute;
+      bottom:0;
+      left:0;
+      width:100%;
+      height:92px;
+      background:linear-gradient(180deg,#b8efb8,#91dc91);
+      border-top:3px solid #6dc66d;
+    }
+
+    .flor-izq, .flor-der{
+      position:absolute;
+      bottom:56px;
+      width:18px;
+      height:42px;
+      z-index:2;
+    }
+
+    .flor-izq{ left:26px; }
+    .flor-der{ right:30px; }
+
+    .flor-izq::before,
+    .flor-der::before{
+      content:"";
+      position:absolute;
+      bottom:0;
+      left:50%;
+      transform:translateX(-50%);
+      width:4px;
+      height:22px;
+      background:#4caf50;
+      border-radius:4px;
+    }
+
+    .flor-izq::after,
+    .flor-der::after{
+      content:"🌸";
+      position:absolute;
+      top:-8px;
+      left:50%;
+      transform:translateX(-50%);
+      font-size:18px;
+      line-height:1;
+    }
+
+    .cuerda{
+      position:absolute;
+      top:0;
+      left:50%;
+      transform:translateX(-50%);
+      width:6px;
+      height:96px;
+      background:#b07a46;
+      border-radius:10px;
+      z-index:2;
+    }
+
+    .nudo{
+      position:absolute;
+      top:92px;
+      left:50%;
+      transform:translateX(-50%);
+      width:18px;
+      height:18px;
+      border:4px solid #b07a46;
+      border-radius:50%;
+      background:#d9b07a;
+      z-index:3;
+    }
+
+    .brainrot{
+      position:absolute;
+      left:50%;
+      top:98px;
+      transform:translateX(-50%);
+      width:210px;
+      height:310px;
+      z-index:3;
+      transform-origin:top center;
+    }
+
+    .spark{
+      position:absolute;
+      top:34px;
+      right:28px;
+      font-size:28px;
+      display:none;
+      z-index:4;
+    }
+
+    .cuello{
+      position:absolute;
+      top:-12px;
+      left:50%;
+      transform:translateX(-50%);
+      width:12px;
+      height:20px;
+      background:#9d6532;
+      border-radius:4px;
+      display:none;
+    }
+
+    .cabeza{
+      position:absolute;
+      top:0;
+      left:50%;
+      transform:translateX(-50%);
+      width:80px;
+      height:90px;
+      background:#c98745;
+      border:4px solid #9d6532;
+      border-radius:12px;
+      display:none;
+    }
+
+    .frente-lineas{
+      position:absolute;
+      top:6px;
+      left:8px;
+      right:8px;
+      height:10px;
+      background:
+        repeating-linear-gradient(
+          to right,
+          transparent 0,
+          transparent 8px,
+          #a06a37 8px,
+          #a06a37 12px
+        );
+      opacity:0.8;
+    }
+
+    .ojo{
+      position:absolute;
+      top:24px;
+      width:20px;
+      height:20px;
+      background:white;
+      border:3px solid #3b2a1d;
+      border-radius:4px;
+    }
+
+    .ojo.izq{ left:10px; }
+    .ojo.der{ right:10px; }
+
+    .pupila{
+      position:absolute;
+      width:9px;
+      height:9px;
+      background:#111;
+      top:5px;
+      left:5px;
+      border-radius:2px;
+    }
+
+    .nariz{
+      position:absolute;
+      left:50%;
+      top:46px;
+      transform:translateX(-50%);
+      width:10px;
+      height:16px;
+      background:#a86d39;
+      border-radius:4px;
+    }
+
+    .boca{
+      position:absolute;
+      left:50%;
+      bottom:10px;
+      transform:translateX(-50%);
+      width:26px;
+      height:10px;
+      border-bottom:4px solid #5b3720;
+      border-radius:0 0 20px 20px;
+    }
+
+    .cuerpo{
+      position:absolute;
+      top:88px;
+      left:50%;
+      transform:translateX(-50%);
+      width:100px;
+      height:136px;
+      background:#d8944f;
+      border:4px solid #a96d36;
+      border-radius:8px;
+      display:none;
+    }
+
+    .cuerpo-textura{
+      position:absolute;
+      inset:8px;
+      background:
+        repeating-linear-gradient(
+          to right,
+          rgba(150,95,40,0.35) 0,
+          rgba(150,95,40,0.35) 2px,
+          transparent 2px,
+          transparent 14px
+        ),
+        repeating-linear-gradient(
+          to bottom,
+          rgba(150,95,40,0.35) 0,
+          rgba(150,95,40,0.35) 2px,
+          transparent 2px,
+          transparent 14px
+        );
+      border-radius:4px;
+      opacity:0.7;
+    }
+
+    .brazo{
+      position:absolute;
+      top:118px;
+      width:18px;
+      height:96px;
+      background:#d8944f;
+      border:4px solid #a96d36;
+      border-radius:10px;
+      display:none;
+    }
+
+    .brazo.izq{
+      left:48px;
+      transform:rotate(12deg);
+      transform-origin:top center;
+    }
+
+    .brazo.der{
+      right:48px;
+      transform:rotate(-12deg);
+      transform-origin:top center;
+    }
+
+    .mano{
+      position:absolute;
+      width:18px;
+      height:18px;
+      background:#d8944f;
+      border:3px solid #a96d36;
+      border-radius:50%;
+      bottom:-8px;
+      left:-3px;
+      display:none;
+    }
+
+    .brazo.der .mano{
+      left:auto;
+      right:-3px;
+    }
+
+    .pierna{
+      position:absolute;
+      top:224px;
+      width:18px;
+      height:118px;
+      background:#d8944f;
+      border:4px solid #a96d36;
+      border-radius:10px;
+      display:none;
+    }
+
+    .pierna.izq{
+      left:72px;
+      transform:rotate(4deg);
+      transform-origin:top center;
+    }
+
+    .pierna.der{
+      right:72px;
+      transform:rotate(-4deg);
+      transform-origin:top center;
+    }
+
+    .pie{
+      position:absolute;
+      width:34px;
+      height:14px;
+      background:#d8944f;
+      border:3px solid #a96d36;
+      border-radius:10px 10px 6px 6px;
+      bottom:-8px;
+      left:-8px;
+    }
+
+    .bate{
+      position:absolute;
+      width:16px;
+      height:110px;
+      background:linear-gradient(180deg,#d6a06a,#b8743c);
+      border:3px solid #8e572b;
+      border-radius:12px;
+      display:none;
+      top:6px;
+      right:-10px;
+      transform:rotate(18deg);
+    }
+
+    .bate::after{
+      content:"";
+      position:absolute;
+      bottom:-8px;
+      left:50%;
+      transform:translateX(-50%);
+      width:30px;
+      height:26px;
+      background:linear-gradient(180deg,#d6a06a,#b8743c);
+      border:3px solid #8e572b;
+      border-radius:16px;
+    }
+
+    .temblor{
+      animation:temblor 0.25s linear infinite;
+    }
+
+    .ganar{
+      animation:ganar 0.8s ease-in-out infinite alternate;
+    }
+
+    .balanceo{
+      animation:balanceo 1.4s ease-in-out infinite;
+    }
+
+    @keyframes temblor{
+      0%{ transform:translateX(-50%) rotate(0deg); }
+      25%{ transform:translateX(-49%) rotate(1deg); }
+      50%{ transform:translateX(-51%) rotate(-1deg); }
+      75%{ transform:translateX(-49%) rotate(1deg); }
+      100%{ transform:translateX(-50%) rotate(0deg); }
+    }
+
+    @keyframes ganar{
+      0%{ transform:translateX(-50%) translateY(0); }
+      100%{ transform:translateX(-50%) translateY(-10px); }
+    }
+
+    @keyframes balanceo{
+      0%{ transform:translateX(-50%) rotate(-3deg); }
+      50%{ transform:translateX(-50%) rotate(3deg); }
+      100%{ transform:translateX(-50%) rotate(-3deg); }
+    }
+
+    /* QUIZ JUEGO 2 MEJORADO */
+    .quiz-wrap{
+      display:grid;
+      grid-template-columns:1fr 320px;
+      gap:28px;
+      align-items:start;
+      margin-top:20px;
+    }
+
+    .quiz-panel{
+      background:#eef7ff;
+      border-radius:22px;
+      padding:24px;
+      box-shadow:0 8px 18px rgba(0,0,0,0.08);
+    }
+
+    .quiz-side{
+      background:white;
+      border-radius:22px;
+      padding:24px;
+      box-shadow:0 8px 18px rgba(0,0,0,0.08);
+    }
+
+    .quiz-header-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:14px;
+    }
+
+    .quiz-numero{
+      background:#fff3cd;
+      color:#a86d00;
+      padding:12px 16px;
+      border-radius:14px;
+      font-weight:bold;
+    }
+
+    .quiz-vidas{
+      font-size:24px;
+      font-weight:bold;
+    }
+
+    .quiz-progreso-fondo{
+      width:100%;
+      height:16px;
+      background:#d8e9f8;
+      border-radius:30px;
+      overflow:hidden;
+      margin-bottom:22px;
+    }
+
+    .quiz-progreso-barra{
+      width:0%;
+      height:100%;
+      background:linear-gradient(90deg,#2c6fb7,#3aa66b);
+      border-radius:30px;
+      transition:width 0.35s ease;
+    }
+
+    .quiz-profe-box{
+      display:flex;
+      align-items:flex-start;
+      gap:16px;
+      margin-bottom:22px;
+    }
+
+    .quiz-profe-avatar{
+      width:78px;
+      height:78px;
+      border-radius:50%;
+      background:linear-gradient(180deg,#ffd54f,#ffb300);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:38px;
+      box-shadow:0 6px 14px rgba(0,0,0,0.12);
+      flex-shrink:0;
+    }
+
+    .quiz-profe-globo{
+      background:white;
+      border-radius:18px;
+      padding:18px;
+      box-shadow:0 6px 14px rgba(0,0,0,0.08);
+      width:100%;
+      position:relative;
+    }
+
+    .quiz-profe-globo::before{
+      content:"";
+      position:absolute;
+      left:-10px;
+      top:24px;
+      width:20px;
+      height:20px;
+      background:white;
+      transform:rotate(45deg);
+    }
+
+    .quiz-profe-nombre{
+      color:#2c6fb7;
+      font-weight:bold;
+      font-size:16px;
+      margin-bottom:8px;
+      text-align:left;
+    }
+
+    .quiz-pregunta{
+      color:#1f3c5c;
+      font-size:28px;
+      font-weight:bold;
+      line-height:1.4;
+      text-align:left;
+      margin:0;
+    }
+
+    .quiz-opciones{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+
+    .quiz-opcion{
+      width:100%;
+      text-align:left;
+      border:none;
+      background:white;
+      color:#1f3c5c;
+      padding:16px 18px;
+      border-radius:16px;
+      font-size:18px;
+      font-weight:bold;
+      cursor:pointer;
+      box-shadow:0 4px 10px rgba(0,0,0,0.08);
+      transition:0.2s ease;
+    }
+
+    .quiz-opcion:hover{
+      transform:translateY(-2px) scale(1.01);
+      background:#f7fbff;
+    }
+
+    .quiz-opcion.correcta{
+      background:#dff7df;
+      color:#2f9e44;
+    }
+
+    .quiz-opcion.incorrecta{
+      background:#ffe3e3;
+      color:#d94841;
+    }
+
+    .quiz-feedback{
+      margin-top:18px;
+      min-height:34px;
+      font-size:20px;
+      font-weight:bold;
+      text-align:center;
+    }
+
+    .quiz-botones{
+      margin-top:20px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .quiz-dato{
+      background:#eaf7ea;
+      color:#2f9e44;
+      padding:14px;
+      border-radius:14px;
+      text-align:center;
+      font-weight:bold;
+      margin-bottom:14px;
+    }
+
+    .quiz-calificacion{
+      background:linear-gradient(180deg,#fff7da,#ffe9f7);
+      color:#c07d00;
+      padding:16px;
+      border-radius:16px;
+      text-align:center;
+      font-weight:bold;
+      font-size:22px;
+      margin-bottom:14px;
+    }
+
+    .quiz-estrellas{
+      background:#eef7ff;
+      color:#2c6fb7;
+      padding:14px;
+      border-radius:14px;
+      text-align:center;
+      font-weight:bold;
+      font-size:22px;
+      margin-bottom:14px;
+    }
+
+    .quiz-resumen{
+      color:#2d3e50;
+      font-size:17px;
+      line-height:1.7;
+      text-align:center;
+    }
+
+    .quiz-boletin{
+      margin-top:18px;
+      background:#f8faff;
+      border:2px dashed #b7d9f8;
+      border-radius:18px;
+      padding:18px;
+      text-align:center;
+    }
+
+    .quiz-boletin h3{
+      color:#2c6fb7;
+      margin-bottom:10px;
+      font-size:24px;
+    }
+
+    .quiz-boletin p{
+      color:#2d3e50;
+      font-size:18px;
+      margin-bottom:8px;
+    }
+
+    /* PUZZLE */
+    .puzzle-wrap{
+      display:grid;
+      grid-template-columns:1fr 320px;
+      gap:28px;
+      align-items:start;
+      margin-top:20px;
+    }
+
+    .puzzle-tablero-panel{
+      background:#eef7ff;
+      border-radius:22px;
+      padding:24px;
+      box-shadow:0 8px 18px rgba(0,0,0,0.08);
+      text-align:center;
+    }
+
+    .puzzle-info-panel{
+      background:white;
+      border-radius:22px;
+      padding:24px;
+      box-shadow:0 8px 18px rgba(0,0,0,0.08);
+    }
+
+    .puzzle-tablero{
+      width:100%;
+      max-width:480px;
+      margin:0 auto;
+      display:grid;
+      gap:4px;
+      background:#b7d9f8;
+      border-radius:16px;
+      padding:4px;
+      box-sizing:border-box;
+    }
+
+    .pieza{
+      position:relative;
+      width:100%;
+      aspect-ratio:1/1;
+      background-size:cover;
+      background-repeat:no-repeat;
+      background-color:#dbeeff;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      transition:transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .pieza:hover{
+      transform:scale(0.98);
+      box-shadow:0 0 0 3px rgba(44,111,183,0.20) inset;
+    }
+
+    .pieza.vacia{
+      background:#d2e9ff;
+      cursor:default;
+    }
+
+    .puzzle-titulo{
+      font-size:28px;
+      color:#1f3c5c;
+      margin-bottom:12px;
+      text-align:center;
+      font-weight:bold;
+    }
+
+    .puzzle-modo{
+      background:#fff3cd;
+      color:#a86d00;
+      padding:12px 14px;
+      border-radius:14px;
+      font-weight:bold;
+      text-align:center;
+      margin-bottom:14px;
+    }
+
+    .puzzle-texto{
+      font-size:18px;
+      color:#2d3e50;
+      text-align:center;
+      margin-bottom:14px;
+    }
+
+    .puzzle-estado{
+      background:#eaf7ea;
+      color:#2f9e44;
+      padding:14px;
+      border-radius:14px;
+      font-weight:bold;
+      text-align:center;
+      margin-bottom:14px;
+      min-height:24px;
+    }
+
+    .puzzle-botones{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      margin-top:16px;
+    }
+
+    .puzzle-nota{
+      margin-top:16px;
+      font-size:15px;
+      color:#4b5d70;
+      text-align:center;
+    }
+
+    .felicitacion-global{
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:99999;
+      background:rgba(0,0,0,0.10);
+      overflow:hidden;
+      pointer-events:none;
+    }
+
+    .felicitacion-global.activa{
+      display:flex;
+    }
+
+    .felicitacion-titulo{
+      position:relative;
+      z-index:3;
+      font-size:64px;
+      font-weight:900;
+      color:#ffffff;
+      text-align:center;
+      padding:24px 34px;
+      border-radius:24px;
+      background:rgba(44,111,183,0.22);
+      backdrop-filter:blur(6px);
+      text-shadow:
+        0 3px 0 rgba(0,0,0,0.18),
+        0 0 18px rgba(255,255,255,0.55),
+        0 0 36px rgba(255,215,0,0.35);
+      animation:popIn 0.35s ease;
+      box-shadow:0 10px 30px rgba(0,0,0,0.18);
+    }
+
+    @keyframes popIn{
+      0%{
+        transform:scale(0.7);
+        opacity:0;
+      }
+      100%{
+        transform:scale(1);
+        opacity:1;
+      }
+    }
+
+    .fw{
+      position:absolute;
+      width:14px;
+      height:14px;
+      border-radius:50%;
+      opacity:0;
+      z-index:2;
+    }
+
+    .felicitacion-global.activa .fw{
+      animation:firework 1.4s ease-out infinite;
+    }
+
+    .fw1{ top:12%; left:14%; color:#ff5252; background:#ff5252; animation-delay:0s; }
+    .fw2{ top:18%; left:76%; color:#ffd54f; background:#ffd54f; animation-delay:0.2s; }
+    .fw3{ top:34%; left:9%; color:#4dd0e1; background:#4dd0e1; animation-delay:0.45s; }
+    .fw4{ top:28%; left:86%; color:#ab47bc; background:#ab47bc; animation-delay:0.15s; }
+    .fw5{ top:72%; left:18%; color:#66bb6a; background:#66bb6a; animation-delay:0.55s; }
+    .fw6{ top:74%; left:80%; color:#ff8a65; background:#ff8a65; animation-delay:0.35s; }
+    .fw7{ top:15%; left:50%; color:#42a5f5; background:#42a5f5; animation-delay:0.65s; }
+    .fw8{ top:60%; left:58%; color:#ec407a; background:#ec407a; animation-delay:0.8s; }
+    .fw9{ top:60%; left:35%; color:#ffee58; background:#ffee58; animation-delay:1s; }
+    .fw10{ top:40%; left:74%; color:#26c6da; background:#26c6da; animation-delay:1.15s; }
+
+    @keyframes firework{
+      0%{
+        transform:scale(0.2);
+        opacity:1;
+        box-shadow:
+          0 0 0 0 currentColor,
+          0 0 0 0 currentColor,
+          0 0 0 0 currentColor,
+          0 0 0 0 currentColor,
+          0 0 0 0 currentColor,
+          0 0 0 0 currentColor,
+          0 0 0 0 currentColor,
+          0 0 0 0 currentColor;
+      }
+      100%{
+        transform:scale(1.7);
+        opacity:0;
+        box-shadow:
+          0 -70px 0 10px currentColor,
+          50px -50px 0 10px currentColor,
+          70px 0 0 10px currentColor,
+          50px 50px 0 10px currentColor,
+          0 70px 0 10px currentColor,
+          -50px 50px 0 10px currentColor,
+          -70px 0 0 10px currentColor,
+          -50px -50px 0 10px currentColor;
+      }
+    }
+
+    @media (max-width: 980px){
+      .juego-grid{
+        grid-template-columns:1fr;
+      }
+
+      .slide{
+        padding:0;
+      }
+
+      .puzzle-wrap,
+      .quiz-wrap{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width: 768px){
+      .contenido{
+        padding:22px;
+      }
+
+      .contenido h1{
+        font-size:34px;
+      }
+
+      .juego-card{
+        padding:20px;
+      }
+
+      .juego-card h2{
+        font-size:26px;
+      }
+
+      .letra-box{
+        width:44px;
+        height:50px;
+        font-size:24px;
+      }
+
+      .tecla{
+        width:42px;
+        height:42px;
+        font-size:16px;
+      }
+
+      .escena{
+        max-width:320px;
+      }
+
+      .felicitacion-titulo{
+        font-size:36px;
+        padding:18px 20px;
+        max-width:90%;
+      }
+
+      .mini-card{
+        font-size:16px;
+        padding:14px 18px;
+      }
+
+      .puzzle-tablero{
+        max-width:320px;
+      }
+
+      .quiz-pregunta{
+        font-size:22px;
+      }
+
+      .quiz-profe-box{
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .quiz-profe-globo::before{
+        display:none;
+      }
+
+      .quiz-profe-nombre,
+      .quiz-pregunta{
+        text-align:center;
+      }
+    }
+  </style>
+
+  <link rel="icon" type="image/png" href="Imagenes/logo.png">
+</head>
+
+<body>
+
+  <header>
+  <div class="main-nav">
+    <div class="logo">
+      <a href="index.html">
+        <img src="Imagenes/logo.png" alt="Logo Edukidz">
+      </a>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="Respiracion.html">Respiración</a></li>
+        <li><a href="Intercambio_gases.html">Intercambio</a></li>
+        <li><a href="Regulacion.html">Regulación</a></li>
+        <li><a href="limpieza_del_aire.html">Limpieza del Aire</a></li>
+      </ul>
+    </nav>
+    <div class="nav-icons">
+      <a href="Juegos.html" class="juegos-btn activo">
+        <span class="juegos-texto">Juegos</span>
+        <span class="juegos-icono">🎮</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+  <main>
+    <section class="contenido">
+    <div class="page-banner juegos">
+      <div class="page-banner-logo">
+        <img src="Imagenes/logo.png" alt="Logo Edukidz">
+      </div>
+      <div class="page-banner-texto">
+<p>Aprende jugando con letras, preguntas y puzzles sobre la respiración.</p>
+      </div>
+    </div>
+
+
+      <h1>🎮 Zona de Juegos Edukidz</h1>
+      <p>Aprende jugando con palabras sobre la respiración, los pulmones y el aire.</p>
+
+      <div class="menu-juegos">
+        <button class="mini-card activo" onclick="mostrarJuego(0)">1. Tung Tung Sahur</button>
+        <button class="mini-card" onclick="mostrarJuego(1)">2. Test interactivo</button>
+        <button class="mini-card" onclick="mostrarJuego(2)">3. Puzzle</button>
+      </div>
+
+      <div class="slider-wrapper">
+        <div class="slider-track" id="sliderTrack">
+
+          <!-- JUEGO 1 -->
+          <div class="slide">
+            <div class="juego-card">
+              <h2>🥁 Juego 1: Adivina la palabra</h2>
+              <p>Adivina la palabra antes de que aparezca completo Tung Tung Sahur.</p>
+
+              <div class="juego-grid">
+
+                <div class="panel-brainrot">
+                  <div class="nombre-monstruo">Tung Tung Sahur</div>
+                  <div class="subtexto">Cada error lo hace aparecer más.</div>
+
+                  <div class="escena">
+                    <div class="sol"></div>
+                    <div class="nube n1"></div>
+                    <div class="nube n2"></div>
+                    <div class="cuerda"></div>
+                    <div class="nudo"></div>
+                    <div class="spark" id="spark">✨</div>
+
+                    <div class="brainrot balanceo" id="brainrot">
+                      <div class="cuello" id="part1"></div>
+
+                      <div class="cabeza" id="part2">
+                        <div class="frente-lineas"></div>
+                        <div class="ojo izq"><div class="pupila"></div></div>
+                        <div class="ojo der"><div class="pupila"></div></div>
+                        <div class="nariz"></div>
+                        <div class="boca"></div>
+                      </div>
+
+                      <div class="cuerpo" id="part3">
+                        <div class="cuerpo-textura"></div>
+                      </div>
+
+                      <div class="brazo izq" id="part4">
+                        <div class="mano" id="part5"></div>
+                      </div>
+
+                      <div class="brazo der" id="part6">
+                        <div class="mano" id="part7"></div>
+                        <div class="bate" id="part9"></div>
+                      </div>
+
+                      <div class="pierna izq" id="part8">
+                        <div class="pie"></div>
+                      </div>
+
+                      <div class="pierna der" id="part10">
+                        <div class="pie"></div>
+                      </div>
+                    </div>
+
+                    <div class="flor-izq"></div>
+                    <div class="flor-der"></div>
+                    <div class="suelo"></div>
+                  </div>
+
+                  <div class="brainrot-badge" id="estadoBrainrot">Errores: 0 de 9</div>
+                  <div class="estado-cara" id="estadoCara">😄 Todo va muy bien</div>
+                </div>
+
+                <div class="panel-palabra">
+                  <div class="pista" id="pistaTexto">Pista: órganos que usamos para respirar</div>
+                  <div class="palabra" id="palabra"></div>
+                  <div class="teclado" id="teclado"></div>
+
+                  <div class="acciones">
+                    <button onclick="nuevoJuego()">Nueva palabra</button>
+                  </div>
+
+                  <div class="errores" id="erroresTexto">Te quedan 9 intentos.</div>
+                  <div class="mensaje" id="mensaje"></div>
+
+                  <div class="contador" id="contadorAciertos">
+                    Has ganado 0 partida(s).
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- JUEGO 2 -->
+          <div class="slide">
+            <div class="juego-card">
+              <h2>📝 Juego 2: Test interactivo</h2>
+              <p>Responde con ayuda de la profe y descubre tu calificación final.</p>
+
+              <div class="quiz-wrap">
+                <div class="quiz-panel">
+
+                  <div class="quiz-header-top">
+                    <div class="quiz-numero" id="quizNumero">Pregunta 1 de 8</div>
+                    <div class="quiz-vidas" id="quizVidas">❤️ ❤️ ❤️</div>
+                  </div>
+
+                  <div class="quiz-progreso-fondo">
+                    <div class="quiz-progreso-barra" id="quizBarra"></div>
+                  </div>
+
+                  <div class="quiz-profe-box">
+                    <div class="quiz-profe-avatar" id="quizAvatar">👩‍🏫</div>
+                    <div class="quiz-profe-globo">
+                      <p class="quiz-profe-nombre">La profe dice:</p>
+                      <p class="quiz-pregunta" id="quizPregunta">Cargando pregunta...</p>
+                    </div>
+                  </div>
+
+                  <div class="quiz-opciones" id="quizOpciones"></div>
+
+                  <div class="quiz-feedback" id="quizFeedback"></div>
+
+                  <div class="quiz-botones">
+                    <button onclick="siguientePreguntaQuiz()" id="btnSiguienteQuiz" style="display:none;">➡️ Siguiente</button>
+                    <button onclick="reiniciarQuiz()" id="btnReiniciarQuiz" style="display:none;">🔄 Repetir test</button>
+                  </div>
+                </div>
+
+                <div class="quiz-side">
+                  <div class="quiz-dato" id="quizAciertos">Aciertos: 0</div>
+                  <div class="quiz-calificacion" id="quizCalificacion">Calificación: 0 / 10</div>
+                  <div class="quiz-estrellas" id="quizEstrellas">⭐ 0</div>
+                  <div class="quiz-resumen" id="quizResumen">
+                    Lee con atención, responde y al final verás tu nota.
+                  </div>
+
+                  <div class="quiz-boletin" id="quizBoletin" style="display:none;">
+                    <h3>📘 Boletín final</h3>
+                    <p id="quizBoletinNota"></p>
+                    <p id="quizBoletinMensaje"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- JUEGO 3 -->
+          <div class="slide">
+            <div class="juego-card">
+              <h2>🧩 Juego 3: Puzzle sorpresa</h2>
+              <p>Se elige un puzzle aleatorio. Hay 2 intermedios y 1 difícil.</p>
+
+              <div class="puzzle-wrap">
+                <div class="puzzle-tablero-panel">
+                  <div id="puzzleBoard" class="puzzle-tablero"></div>
+                </div>
+
+                <div class="puzzle-info-panel">
+                  <div class="puzzle-titulo">Puzzle aleatorio</div>
+                  <div class="puzzle-modo" id="puzzleMode">Modo: -</div>
+                  <div class="puzzle-texto" id="puzzleText">Presiona empezar para cargar un puzzle sorpresa.</div>
+                  <div class="puzzle-estado" id="puzzleStatus">Movimientos: 0</div>
+
+                  <div class="puzzle-botones">
+                    <button onclick="iniciarPuzzleAleatorio()">🎲 Puzzle aleatorio</button>
+                    <button onclick="reiniciarPuzzleActual()">🔄 Reiniciar puzzle</button>
+                  </div>
+
+                  <div class="puzzle-nota">
+                    Toca una pieza que esté al lado del cuadro vacío para moverla.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <div class="felicitacion-global" id="felicitacionGlobal">
+    <div class="fw fw1"></div>
+    <div class="fw fw2"></div>
+    <div class="fw fw3"></div>
+    <div class="fw fw4"></div>
+    <div class="fw fw5"></div>
+    <div class="fw fw6"></div>
+    <div class="fw fw7"></div>
+    <div class="fw fw8"></div>
+    <div class="fw fw9"></div>
+    <div class="fw fw10"></div>
+    <div class="felicitacion-titulo">🎉 ¡Felicidades, ganaste! 🎉</div>
+  </div>
+
+  <script>
+    function mostrarJuego(indice){
+      const slider = document.getElementById("sliderTrack");
+      slider.style.transform = "translateX(-" + (indice * 33.3333) + "%)";
+
+      const botones = document.querySelectorAll(".mini-card");
+      botones.forEach((btn, i) => {
+        btn.classList.toggle("activo", i === indice);
+      });
+
+      if(indice === 2 && !puzzleInicializado){
+        iniciarPuzzleAleatorio();
+      }
+    }
+
+    let timeoutFelicitacion = null;
+
+    function mostrarFelicitacionGlobal(texto = "🎉 ¡Felicidades, ganaste! 🎉"){
+      const felicitacion = document.getElementById("felicitacionGlobal");
+      felicitacion.querySelector(".felicitacion-titulo").textContent = texto;
+      felicitacion.classList.add("activa");
+
+      if(timeoutFelicitacion){
+        clearTimeout(timeoutFelicitacion);
+      }
+
+      timeoutFelicitacion = setTimeout(() => {
+        felicitacion.classList.remove("activa");
+      }, 3000);
+    }
+
+    /* JUEGO 1 */
+    const palabras = [
+      { palabra: "PULMONES", pista: "Pista: órganos que usamos para respirar" },
+      { palabra: "NARIZ", pista: "Pista: parte del cuerpo que limpia el aire" },
+      { palabra: "OXIGENO", pista: "Pista: gas que necesitamos para vivir" },
+      { palabra: "ALVEOLOS", pista: "Pista: bolsitas pequeñas dentro de los pulmones" },
+      { palabra: "AIRE", pista: "Pista: lo que respiramos" },
+      { palabra: "TOSER", pista: "Pista: ayuda a expulsar lo que no sirve" },
+      { palabra: "RESPIRAR", pista: "Pista: acción de tomar y sacar aire" },
+      { palabra: "CEREBRO", pista: "Pista: controla la respiración" }
+    ];
+
+    const tecladoLetras = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+    const maxErrores = 9;
+
+    let palabraActual = "";
+    let letrasAdivinadas = [];
+    let errores = 0;
+    let ganadas = 0;
+
+    function crearTeclado(){
+      const teclado = document.getElementById("teclado");
+      teclado.innerHTML = "";
+
+      tecladoLetras.split("").forEach(letra => {
+        const btn = document.createElement("button");
+        btn.className = "tecla";
+        btn.textContent = letra;
+        btn.onclick = () => probarLetra(letra, btn);
+        teclado.appendChild(btn);
+      });
+    }
+
+    function mostrarPalabra(){
+      const contenedor = document.getElementById("palabra");
+      contenedor.innerHTML = "";
+
+      palabraActual.split("").forEach(letra => {
+        const box = document.createElement("div");
+        box.className = "letra-box";
+        box.textContent = letrasAdivinadas.includes(letra) ? letra : "";
+        contenedor.appendChild(box);
+      });
+    }
+
+    function ocultarTodasLasPartes(){
+      for(let i = 1; i <= 10; i++){
+        const parte = document.getElementById("part" + i);
+        if(parte) parte.style.display = "none";
+      }
+    }
+
+    function actualizarBrainrot(){
+      ocultarTodasLasPartes();
+
+      if(errores >= 1) document.getElementById("part2").style.display = "block";
+      if(errores >= 2) document.getElementById("part1").style.display = "block";
+      if(errores >= 3) document.getElementById("part3").style.display = "block";
+      if(errores >= 4){
+        document.getElementById("part4").style.display = "block";
+        document.getElementById("part5").style.display = "block";
+      }
+      if(errores >= 5){
+        document.getElementById("part6").style.display = "block";
+        document.getElementById("part7").style.display = "block";
+      }
+      if(errores >= 6) document.getElementById("part8").style.display = "block";
+      if(errores >= 7) document.getElementById("part10").style.display = "block";
+      if(errores >= 8) document.getElementById("part9").style.display = "block";
+
+      const brainrot = document.getElementById("brainrot");
+      const spark = document.getElementById("spark");
+      const estadoCara = document.getElementById("estadoCara");
+
+      brainrot.classList.remove("temblor", "ganar");
+      spark.style.display = "none";
+
+      if(errores === 0){
+        estadoCara.textContent = "😄 Todo va muy bien";
+      } else if(errores <= 2){
+        estadoCara.textContent = "🙂 Ya está apareciendo";
+      } else if(errores <= 4){
+        estadoCara.textContent = "😬 Cuidado";
+      } else if(errores <= 6){
+        estadoCara.textContent = "😵 Casi completo";
+        brainrot.classList.add("temblor");
+      } else if(errores <= 8){
+        estadoCara.textContent = "🚨 Últimos intentos";
+        brainrot.classList.add("temblor");
+      } else {
+        estadoCara.textContent = "🥁 Tung Tung Sahur apareció completo";
+        brainrot.classList.add("temblor");
+      }
+
+      document.getElementById("estadoBrainrot").textContent =
+        "Errores: " + errores + " de " + maxErrores;
+
+      document.getElementById("erroresTexto").textContent =
+        "Te quedan " + (maxErrores - errores) + " intentos.";
+    }
+
+    function probarLetra(letra, boton){
+      boton.disabled = true;
+
+      if (palabraActual.includes(letra)) {
+        if (!letrasAdivinadas.includes(letra)) letrasAdivinadas.push(letra);
+      } else {
+        errores++;
+      }
+
+      mostrarPalabra();
+      actualizarBrainrot();
+      revisarEstadoJuego1();
+    }
+
+    function revisarEstadoJuego1(){
+      const mensaje = document.getElementById("mensaje");
+      const palabraCompleta = palabraActual.split("").every(letra => letrasAdivinadas.includes(letra));
+
+      if (palabraCompleta) {
+        mensaje.textContent = "🎉 ¡Ganaste! Descubriste la palabra.";
+        mensaje.style.color = "#2f9e44";
+        desactivarTeclado();
+        ganadas++;
+        document.getElementById("contadorAciertos").textContent =
+          "Has ganado " + ganadas + " partida(s).";
+
+        document.getElementById("brainrot").classList.remove("temblor", "balanceo");
+        document.getElementById("brainrot").classList.add("ganar");
+        document.getElementById("spark").style.display = "block";
+        document.getElementById("estadoCara").textContent = "🌟 ¡Salvaste a Tung Tung Sahur!";
+        mostrarFelicitacionGlobal();
+        return;
+      }
+
+      if (errores >= maxErrores) {
+        mensaje.textContent = "😵 Perdiste. La palabra era: " + palabraActual;
+        mensaje.style.color = "#d94841";
+        desactivarTeclado();
+      }
+    }
+
+    function desactivarTeclado(){
+      document.querySelectorAll(".tecla").forEach(btn => btn.disabled = true);
+    }
+
+    function nuevoJuego(){
+      const aleatoria = palabras[Math.floor(Math.random() * palabras.length)];
+      palabraActual = aleatoria.palabra;
+      letrasAdivinadas = [];
+      errores = 0;
+
+      document.getElementById("pistaTexto").textContent = aleatoria.pista;
+      document.getElementById("mensaje").textContent = "";
+      document.getElementById("mensaje").style.color = "#1f3c5c";
+
+      crearTeclado();
+      mostrarPalabra();
+      actualizarBrainrot();
+
+      document.getElementById("brainrot").classList.remove("temblor", "ganar");
+      document.getElementById("brainrot").classList.add("balanceo");
+      document.getElementById("spark").style.display = "none";
+      document.getElementById("estadoCara").textContent = "😄 Todo va muy bien";
+    }
+
+    /* JUEGO 2 QUIZ MEJORADO */
+    const quizPreguntas = [
+      {
+        pregunta: "¿Qué órganos usamos para respirar?",
+        opciones: ["Los pulmones", "Los riñones", "El estómago"],
+        correcta: 0,
+        explicacion: "Muy bien. Los pulmones son los órganos que usamos para respirar."
+      },
+      {
+        pregunta: "¿Por dónde entra el aire al cuerpo?",
+        opciones: ["Por la nariz o la boca", "Por el corazón", "Por el hígado"],
+        correcta: 0,
+        explicacion: "Correcto. El aire entra por la nariz o por la boca."
+      },
+      {
+        pregunta: "¿Qué gas necesita el cuerpo para vivir?",
+        opciones: ["Oxígeno", "Dióxido de carbono", "Vapor"],
+        correcta: 0,
+        explicacion: "Exacto. El cuerpo necesita oxígeno para vivir."
+      },
+      {
+        pregunta: "¿Qué gas sacamos cuando exhalamos?",
+        opciones: ["Dióxido de carbono", "Oxígeno puro", "Helio"],
+        correcta: 0,
+        explicacion: "Muy bien. Cuando exhalamos sacamos dióxido de carbono."
+      },
+      {
+        pregunta: "¿Qué parte ayuda a limpiar el aire antes de que entre?",
+        opciones: ["La nariz", "El páncreas", "Los huesos"],
+        correcta: 0,
+        explicacion: "Sí. La nariz ayuda a limpiar el aire antes de que llegue a los pulmones."
+      },
+      {
+        pregunta: "¿Qué órgano ayuda a controlar la respiración?",
+        opciones: ["El cerebro", "La vejiga", "El codo"],
+        correcta: 0,
+        explicacion: "Correcto. El cerebro ayuda a controlar la respiración."
+      },
+      {
+        pregunta: "¿Dónde ocurre el intercambio de gases?",
+        opciones: ["En los alvéolos", "En los dientes", "En las uñas"],
+        correcta: 0,
+        explicacion: "Exacto. El intercambio de gases ocurre en los alvéolos."
+      },
+      {
+        pregunta: "¿Qué ayuda a sacar del aire lo que no sirve?",
+        opciones: ["Los pelitos de la nariz y el moco", "Las pestañas", "Las rodillas"],
+        correcta: 0,
+        explicacion: "Muy bien. Los pelitos de la nariz y el moco atrapan polvo y suciedad."
+      }
+    ];
+
+    let quizIndice = 0;
+    let quizAciertos = 0;
+    let quizRespondida = false;
+    let quizVidas = 3;
+    let quizEstrellas = 0;
+
+    function iniciarQuiz(){
+      quizIndice = 0;
+      quizAciertos = 0;
+      quizRespondida = false;
+      quizVidas = 3;
+      quizEstrellas = 0;
+
+      document.getElementById("btnReiniciarQuiz").style.display = "none";
+      document.getElementById("btnSiguienteQuiz").style.display = "none";
+      document.getElementById("quizBoletin").style.display = "none";
+
+      renderPreguntaQuiz();
+      actualizarPanelQuiz();
+    }
+
+    function renderPreguntaQuiz(){
+      const pregunta = quizPreguntas[quizIndice];
+      document.getElementById("quizNumero").textContent = `Pregunta ${quizIndice + 1} de ${quizPreguntas.length}`;
+      document.getElementById("quizPregunta").textContent = pregunta.pregunta;
+      document.getElementById("quizFeedback").textContent = "";
+      quizRespondida = false;
+
+      const progreso = ((quizIndice) / quizPreguntas.length) * 100;
+      document.getElementById("quizBarra").style.width = progreso + "%";
+
+      const contenedor = document.getElementById("quizOpciones");
+      contenedor.innerHTML = "";
+
+      const opcionesMezcladas = pregunta.opciones.map((opcion, index) => ({
+        texto: opcion,
+        esCorrecta: index === pregunta.correcta
+      }));
+
+      mezclarArray(opcionesMezcladas);
+
+      opcionesMezcladas.forEach((opcion) => {
+        const btn = document.createElement("button");
+        btn.className = "quiz-opcion";
+        btn.textContent = opcion.texto;
+        btn.dataset.correcta = opcion.esCorrecta ? "true" : "false";
+        btn.onclick = () => responderQuiz(opcion.esCorrecta, btn);
+        contenedor.appendChild(btn);
+      });
+
+      document.getElementById("btnSiguienteQuiz").style.display = "none";
+    }
+
+    function responderQuiz(esCorrecta, boton){
+      if(quizRespondida) return;
+      quizRespondida = true;
+
+      const pregunta = quizPreguntas[quizIndice];
+      const botones = document.querySelectorAll(".quiz-opcion");
+
+      botones.forEach((btn) => {
+        btn.disabled = true;
+        if(btn.dataset.correcta === "true"){
+          btn.classList.add("correcta");
+        }
+      });
+
+      if(esCorrecta){
+        boton.classList.add("correcta");
+        document.getElementById("quizFeedback").textContent = "✅ " + pregunta.explicacion;
+        document.getElementById("quizFeedback").style.color = "#2f9e44";
+        quizAciertos++;
+        quizEstrellas++;
+      } else {
+        boton.classList.add("incorrecta");
+        quizVidas--;
+        document.getElementById("quizFeedback").textContent = "❌ " + pregunta.explicacion;
+        document.getElementById("quizFeedback").style.color = "#d94841";
+      }
+
+      actualizarPanelQuiz();
+
+      if(quizVidas <= 0){
+        finalizarQuiz(true);
+        return;
+      }
+
+      if(quizIndice < quizPreguntas.length - 1){
+        document.getElementById("btnSiguienteQuiz").style.display = "inline-block";
+      } else {
+        finalizarQuiz(false);
+      }
+    }
+
+    function siguientePreguntaQuiz(){
+      quizIndice++;
+      renderPreguntaQuiz();
+    }
+
+    function actualizarPanelQuiz(){
+      const nota = ((quizAciertos / quizPreguntas.length) * 10).toFixed(1);
+      document.getElementById("quizAciertos").textContent = `Aciertos: ${quizAciertos} de ${quizPreguntas.length}`;
+      document.getElementById("quizCalificacion").textContent = `Calificación: ${nota} / 10`;
+      document.getElementById("quizEstrellas").textContent = `⭐ ${quizEstrellas}`;
+      document.getElementById("quizVidas").textContent = "❤️ ".repeat(Math.max(quizVidas,0)).trim() || "💔";
+    }
+
+    function finalizarQuiz(sinVidas){
+      const nota = ((quizAciertos / quizPreguntas.length) * 10).toFixed(1);
+      let mensajeFinal = "";
+      let observacion = "";
+
+      if(sinVidas){
+        mensajeFinal = "💔 Te quedaste sin vidas.";
+        observacion = "Sigue practicando. Puedes volver a intentarlo.";
+      } else if(nota >= 9){
+        mensajeFinal = "🌟 ¡Excelente trabajo!";
+        observacion = "Aprendiste muchísimo sobre la respiración.";
+        mostrarFelicitacionGlobal("🏅 ¡Excelente calificación! 🎉");
+      } else if(nota >= 7){
+        mensajeFinal = "👏 ¡Muy bien!";
+        observacion = "Vas aprendiendo muy bien.";
+      } else if(nota >= 5){
+        mensajeFinal = "🙂 Bien hecho.";
+        observacion = "Puedes intentarlo otra vez para mejorar tu nota.";
+      } else {
+        mensajeFinal = "📘 Sigue practicando.";
+        observacion = "Con otro intento seguro mejoras.";
+      }
+
+      document.getElementById("quizBarra").style.width = "100%";
+      document.getElementById("quizFeedback").textContent = mensajeFinal;
+      document.getElementById("quizFeedback").style.color = "#2c6fb7";
+      document.getElementById("quizResumen").textContent = observacion;
+
+      document.getElementById("quizBoletin").style.display = "block";
+      document.getElementById("quizBoletinNota").textContent = "Nota final: " + nota + " / 10";
+      document.getElementById("quizBoletinMensaje").textContent = observacion;
+
+      document.getElementById("btnReiniciarQuiz").style.display = "inline-block";
+      document.getElementById("btnSiguienteQuiz").style.display = "none";
+
+      document.querySelectorAll(".quiz-opcion").forEach(btn => btn.disabled = true);
+    }
+
+    function reiniciarQuiz(){
+      iniciarQuiz();
+    }
+
+    /* JUEGO 3 PUZZLE */
+    const puzzleConfigs = [
+      { nombre: "Intermedio 1", imagen: "Imagenes/puzzle1.png", size: 3 },
+      { nombre: "Intermedio 2", imagen: "Imagenes/puzzle2.png", size: 3 },
+      { nombre: "Difícil", imagen: "Imagenes/puzzle3.png", size: 4 }
+    ];
+
+    let puzzleInicializado = false;
+    let puzzleActual = null;
+    let tiles = [];
+    let solvedTiles = [];
+    let moves = 0;
+
+    function iniciarPuzzleAleatorio(){
+      puzzleActual = puzzleConfigs[Math.floor(Math.random() * puzzleConfigs.length)];
+      crearPuzzle(puzzleActual);
+      puzzleInicializado = true;
+    }
+
+    function reiniciarPuzzleActual(){
+      if(!puzzleActual){
+        iniciarPuzzleAleatorio();
+        return;
+      }
+      crearPuzzle(puzzleActual);
+    }
+
+    function crearPuzzle(config){
+      const size = config.size;
+      const total = size * size;
+      solvedTiles = Array.from({length: total}, (_, i) => i);
+      tiles = [...solvedTiles];
+      moves = 0;
+
+      do{
+        mezclarArray(tiles);
+      }while(!esPuzzleValido(tiles, size) || estaResuelto());
+
+      document.getElementById("puzzleMode").textContent = "Modo: " + config.nombre + " (" + size + "x" + size + ")";
+      document.getElementById("puzzleText").textContent = " Ordena las piezas correctamente.";
+      document.getElementById("puzzleStatus").textContent = "Movimientos: 0";
+
+      renderPuzzle();
+    }
+
+    function mezclarArray(arr){
+      for(let i = arr.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+    }
+
+    function esPuzzleValido(arr, size){
+      const filtered = arr.filter(n => n !== arr.length - 1);
+      let inversions = 0;
+
+      for(let i = 0; i < filtered.length; i++){
+        for(let j = i + 1; j < filtered.length; j++){
+          if(filtered[i] > filtered[j]) inversions++;
+        }
+      }
+
+      if(size % 2 !== 0){
+        return inversions % 2 === 0;
+      }
+
+      const emptyIndex = arr.indexOf(arr.length - 1);
+      const emptyRowFromBottom = size - Math.floor(emptyIndex / size);
+
+      if(emptyRowFromBottom % 2 === 0){
+        return inversions % 2 !== 0;
+      }else{
+        return inversions % 2 === 0;
+      }
+    }
+
+    function renderPuzzle(){
+      const board = document.getElementById("puzzleBoard");
+      const size = puzzleActual.size;
+      board.innerHTML = "";
+      board.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+
+      tiles.forEach((value, index) => {
+        const piece = document.createElement("button");
+        piece.className = "pieza";
+
+        if(value === tiles.length - 1){
+          piece.classList.add("vacia");
+        }else{
+          const row = Math.floor(value / size);
+          const col = value % size;
+          const bgX = (col / (size - 1)) * 100;
+          const bgY = (row / (size - 1)) * 100;
+
+          piece.style.backgroundImage = `url('${puzzleActual.imagen}')`;
+          piece.style.backgroundPosition = `${bgX}% ${bgY}%`;
+          piece.style.backgroundSize = `${size * 100}% ${size * 100}%`;
+          piece.onclick = () => moverPieza(index);
+        }
+
+        board.appendChild(piece);
+      });
+    }
+
+    function moverPieza(index){
+      const size = puzzleActual.size;
+      const emptyIndex = tiles.indexOf(tiles.length - 1);
+
+      if(!esAdyacente(index, emptyIndex, size)) return;
+
+      [tiles[index], tiles[emptyIndex]] = [tiles[emptyIndex], tiles[index]];
+      moves++;
+      document.getElementById("puzzleStatus").textContent = "Movimientos: " + moves;
+      renderPuzzle();
+
+      if(estaResuelto()){
+        document.getElementById("puzzleText").textContent = "¡Lo lograste! Armaste el puzzle correctamente.";
+        document.getElementById("puzzleStatus").textContent = "✅ Completado en " + moves + " movimientos";
+        mostrarFelicitacionGlobal("🧩 ¡Puzzle completado! 🎉");
+      }
+    }
+
+    function esAdyacente(a, b, size){
+      const rowA = Math.floor(a / size);
+      const colA = a % size;
+      const rowB = Math.floor(b / size);
+      const colB = b % size;
+
+      const sameRow = rowA === rowB && Math.abs(colA - colB) === 1;
+      const sameCol = colA === colB && Math.abs(rowA - rowB) === 1;
+
+      return sameRow || sameCol;
+    }
+
+    function estaResuelto(){
+      return tiles.every((value, index) => value === solvedTiles[index]);
+    }
+
+    nuevoJuego();
+    iniciarQuiz();
+  </script>
+
+</body>
+</html>

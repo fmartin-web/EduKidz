@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Edukidz</title>
+  <link rel="stylesheet" href="css.css" />
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <link rel="icon" type="image/png" href="Imagenes/logo.png">
+</head>
+<body>
+
+<header>
+  <div class="main-nav">
+    <div class="logo">
+      <a href="index.html">
+        <img src="Imagenes/logo.png" alt="Logo Edukidz">
+      </a>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html" class="activo">Inicio</a></li>
+        <li><a href="Respiracion.html">Respiración</a></li>
+        <li><a href="Intercambio_gases.html">Intercambio</a></li>
+        <li><a href="Regulacion.html">Regulación</a></li>
+        <li><a href="limpieza_del_aire.html">Limpieza del Aire</a></li>
+      </ul>
+    </nav>
+    <div class="nav-icons">
+      <a href="Juegos.html" class="juegos-btn">
+        <span class="juegos-texto">Juegos</span>
+        <span class="juegos-icono">🎮</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+
+    <div class="hero-text">
+      <span class="tag">Ciencias Naturales</span>
+
+      <h1>¡Descubre tus <span>Pulmones</span>!</h1>
+
+      <p>
+        Aprende cómo funcionan tus pulmones de forma divertida e interactiva.
+      </p>
+
+      <div class="hero-actions">
+        <a href="Respiracion.html" class="btn-explorar">¡Empezar!</a>
+        <a href="Juegos.html" class="btn-secundario">Ir a Juegos</a>
+      </div>
+    </div>
+
+    <div class="hero-modelo">
+      <div class="modelo-card">
+        <h2>Modelo 3D</h2>
+
+        <div class="modelo-frame">
+          <model-viewer
+            src="Imagenes/pulmones.glb"
+            alt="Modelo 3D de pulmones"
+            camera-controls
+            auto-rotate
+            auto-rotate-delay="0"
+            rotation-per-second="25deg"
+            shadow-intensity="1"
+            exposure="1"
+            interaction-prompt="auto"
+            touch-action="pan-y"
+            style="width:100%; height:100%; --poster-color: transparent;">
+          </model-viewer>
+        </div>
+
+        <div class="modelo-info">
+          Gira el modelo con el mouse o con el dedo para explorarlo.
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+</main>
+
+</body>
+</html>
